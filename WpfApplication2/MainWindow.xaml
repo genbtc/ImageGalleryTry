@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vwp="clr-namespace:CodePlex.VirtualizingWrapPanel;assembly=VirtualizingWrapPanel"
         xmlns:local="clr-namespace:GalleryTry"
-        Title="MainWindow" Height="350" Width="640">
+        Title="MainWindow" Height="1242" Width="1290">
     <Window.DataContext>
         <local:ViewModel x:Name="datacontextviewmodel"/>
     </Window.DataContext>
@@ -13,9 +14,8 @@
         <DataTemplate x:Key="ItemDataTemplate">
             <Grid Width="160"
                   Height="160"
-                  Margin="32,32,0,0"
+                  Margin="16,16,16,16"
                   d:DataContext="{d:DesignInstance local:DataItem}">
-                <!--<Image Source="{Binding Picture, Mode=OneTime}" />-->
                 <Image >
                     <Image.Source>
                         <BitmapImage
@@ -28,7 +28,8 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <ListBox x:Name="ItemsListBox" ItemsSource="{Binding Images}"  Margin="0,0,0,0">
+        <!--ListBox select 3 per row one-->
+        <ListBox x:Name="ItemsListBox" ItemsSource="{Binding Images}"  Margin="0,0,0,0" HorizontalAlignment="Left" Width="640">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ItemsControl ItemTemplate="{StaticResource ItemDataTemplate}" ItemsSource="{Binding}">
@@ -41,22 +42,14 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <!--Old one-->
-        <!--<ListBox ItemsSource="{Binding Images}" VirtualizingPanel.IsVirtualizing="True">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Image Height="64" Width="64">
-                        <Image.Source>
-                            <BitmapImage
-                                DecodePixelHeight="64"
-                                DecodePixelWidth="64"
-                                UriSource="{Binding Path=., Mode=OneWay,UpdateSourceTrigger=Explicit}" 
-                                CreateOptions="DelayCreation" 
-                                CacheOption="None"  />
-                        </Image.Source>
-                    </Image>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
+        <!--New Virtual Wrap panel one-->
+        <ListBox  HorizontalAlignment="Right" Width="640"
+            ItemsSource="{Binding Images2}" VirtualizingPanel.IsVirtualizing="True" ItemTemplate="{DynamicResource ItemDataTemplate}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <vwp:VirtualizingWrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </Window>
