@@ -28,6 +28,9 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu/>
+        </Grid.ContextMenu>
         <!--ListBox select 3 per row one-->
         <ListBox x:Name="ItemsListBox" ItemsSource="{Binding Images}"  Margin="0,0,0,0" HorizontalAlignment="Left" Width="640">
             <ListBox.ItemTemplate>
@@ -43,6 +46,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <!--New Virtual Wrap panel one-->
+        <RadioButton />
         <ListBox  HorizontalAlignment="Right" Width="640"
             ItemsSource="{Binding Images2}" VirtualizingPanel.IsVirtualizing="True" ItemTemplate="{DynamicResource ItemDataTemplate}">
             <ListBox.ItemsPanel>
